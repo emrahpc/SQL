@@ -1,0 +1,48 @@
+SELECT * FROM Books;
+
+SELECT b.*
+FROM Books b 
+INNER JOIN Category c ON b.categoryid = c.id
+WHERE c."Category_Name" = 'Bilgisayar Bilimleri';
+
+SELECT * 
+FROM Books
+WHERE "Publication Year" >= 2020;
+
+Select b.Name,c."Category_Name" from Books b
+inner join Category c on b.categoryid=c.id;
+
+SELECT U.name, U.surname, B.bookname AS bookname
+FROM loan L
+JOIN student S ON L.studentid = S.id
+JOIN users U ON S.usersid = U.id
+JOIN books B ON L.bookid = B.id;
+
+SELECT B.bookname AS Bookname, A.name AS AuthorName, B."Publication Year" AS PublicationYear
+FROM books B
+JOIN author A ON B.authorid = A.id;
+
+SELECT U.name, U.surname, B.bookname AS BookName, L.checkout_date AS Checkoutdate
+FROM loan L
+JOIN student S ON L.studentid = S.id
+JOIN users U ON S.usersid = U.id
+JOIN books B ON L.bookid = B.id;
+
+SELECT U.name, U.surname, B.bookname AS BookName , L.checkout_date AS Checkoutdate, L.returndate As ReturnDate
+FROM loan L
+JOIN student S ON L.studentid = S.id
+JOIN users U ON S.usersid = U.id
+JOIN books B ON L.bookid = B.id
+WHERE L.returndate IS NULL;
+
+SELECT C."Category_Name" AS Categories, COUNT(B.id) AS Numberofbooks
+FROM books B
+JOIN Category C ON B.categoryid = C.id
+GROUP BY C."Category_Name";
+
+SELECT U.name, U.surname, COUNT(L.bookid) AS NumberofcheckoutBooks
+FROM loan L
+JOIN student S ON L.studentid = S.id
+JOIN users U ON S.usersid = U.id
+GROUP BY U.name, U.surname
+ORDER BY  DESC;
